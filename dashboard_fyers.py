@@ -52,19 +52,21 @@ def create_graph(data_df, fut_dict):
     y=data_df['Close']
     
     fig=go.Figure()
-    # st.write("Reached here")
+    time=[]
+    count=1
 
     for k, v in fut_dict.items():
-
+        if count:
+            time=v['Time']
+            count=count-1
+            
         fig.add_traces(go.Scatter(x= v['Time'], y= v['Close'], mode='lines', name=k))
 
 
-    # fig.add_trace(go.Scatter(x=fut_df['Time'],y=fut_df['Close']))
-    fig.add_traces(go.Scatter(x=x,y=y,mode='lines', name='Underlying Price'))
-    # fig.add_trace(go.Bar(x=x,y=volume, name='Volume'))
+    fig.add_traces(go.Scatter(x=time,y=y,mode='lines', name='Underlying Price'))
+
 
     return fig
-
 
 
 def get_data(fyers_obj, symbol, start_date='2024-01-01', end_date= date.today()):
